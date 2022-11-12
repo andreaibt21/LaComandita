@@ -90,10 +90,11 @@ class UsuarioController
 
     public function Baja($request, $response, $args)
     {
+        var_dump($args);
         try
         {
-            //var_dump($args);
             $idDelUsuario = $args["id"];
+            var_dump($idDelUsuario);
             $modificacion = Usuario::Baja($idDelUsuario);
             switch($modificacion)
             {
