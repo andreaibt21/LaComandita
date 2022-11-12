@@ -12,12 +12,12 @@ class ServicioController
             $params = $request->getParsedBody();
             //var_dump($params);
             $cliente = new Cliente($params["cliente"]);
-            $pedido = new Servicio();
-            $pedido->id_mesa= $params["mesa"];
-            $pedido->id_cliente =  Cliente::Alta($cliente);
-            $pedido->id_usuario= $params["id_usuario"];
-            $pedido->fecha_prevista = $params["estara_en"];
-            $alta = Servicio::Alta($pedido);
+            $servicio = new Servicio();
+            $servicio->id_mesa= $params["mesa"];
+            $servicio->id_cliente =  Cliente::Alta($cliente);
+            $servicio->id_usuario= $params["id_usuario"];
+            $servicio->fecha_prevista = $params["estara_en"];
+            $alta = Servicio::Alta($servicio);
             switch($alta)
             {
                 case '1':
@@ -50,8 +50,8 @@ class ServicioController
         try
         {
             //var_dump($args);
-            $idDelPedido = $args["id"];
-            $modificacion = Servicio::Baja($idDelPedido);
+            $idServicio = $args["id"];
+            $modificacion = Servicio::Baja($idServicio);
             switch($modificacion)
             {
                 case 0:
@@ -82,15 +82,15 @@ class ServicioController
         try
         {
             $params = $request->getParsedBody();
-            $pedido = new Servicio();
-            $pedido->id = $params["idDelPedido"];
-            $pedido->id_mesa = $params["nuevaMesa"];
-            $pedido->id_usuario = $params["nuevoMozo"];
-            $modificacion = Servicio::Modificacion($pedido);
+            $servicio = new Servicio();
+            $servicio->id = $params["idDelPedido"];
+            $servicio->id_mesa = $params["nuevaMesa"];
+            $servicio->id_usuario = $params["nuevoMozo"];
+            $modificacion = Servicio::Modificacion($servicio);
             switch($modificacion)
             {
                 case 0:
-                    $respuesta = "Este ID no corresponde a ningún pedido.";
+                    $respuesta = "Este ID no corresponde a ningún servicio.";
                     break;
                 case 1:
                     $respuesta = "Mesa no disponible.";
@@ -143,11 +143,11 @@ class ServicioController
         try
         {
             $params = $request->getParsedBody();
-            $pedido = new Servicio();
-            $pedido->id = $params["id"];
+            $servicio = new Servicio();
+            $servicio->id = $params["id"];
             $archivo = ($_FILES["archivo"]);
-            $pedido->foto = ($archivo["tmp_name"]);
-            $pedido->GuardarImagen();
+            $servicio->foto = ($archivo["tmp_name"]);
+            $servicio->GuardarImagen();
             //var_dump($archivo);
             $payload = json_encode("Carga exitosa.");
             $response->getBody()->write($payload);

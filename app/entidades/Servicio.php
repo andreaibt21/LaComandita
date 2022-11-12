@@ -131,7 +131,7 @@ class Servicio implements IAbm
         $dir = $destino.$nombreFoto;
         move_uploaded_file($this->foto, $dir);
         $this->foto = $dir;
-        Pedido::grabarFoto($this);
+        Servicio::grabarFoto($this);
         return $dir;
     }
 
@@ -202,17 +202,17 @@ class Servicio implements IAbm
         }
     }
 
-    public static function grabarFoto($pedido)
+    public static function grabarFoto($servicio)
     {       
         try
         {
             $objAccesoDato = AccesoDatos::obtenerInstancia();
-            $consulta = $objAccesoDato->prepararConsulta("UPDATE pedido
+            $consulta = $objAccesoDato->prepararConsulta("UPDATE servicio
                                                           SET foto = :foto,                                                            
                                                               updated_at = :updated_at
                                                           WHERE id = :id");
-            $consulta->bindValue(':id', $pedido->id, PDO::PARAM_STR);
-            $consulta->bindValue(':foto', $pedido->foto, PDO::PARAM_STR);
+            $consulta->bindValue(':id', $servicio->id, PDO::PARAM_STR);
+            $consulta->bindValue(':foto', $servicio->foto, PDO::PARAM_STR);
             $fecha = new DateTime(date("d-m-Y H:i:s"));
             $consulta->bindValue(':updated_at', date_format($fecha, 'Y-m-d H:i:s'));
             $consulta->execute();
