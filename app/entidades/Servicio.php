@@ -3,7 +3,7 @@ include_once("db/AccesoDatos.php");
 include_once("interfaces/IAbm.php");
 date_default_timezone_set('America/Buenos_Aires');
 
-class Pedido implements IAbm
+class Servicio implements IAbm
 {
     public $id;
     public $id_mesa;
@@ -18,17 +18,19 @@ class Pedido implements IAbm
     public $activo;
        
     
-    public static function Alta($pedido)
+    public static function Alta($servicio)
     {
         $retorno = 0; 
-        $idMesaAux = AccesoDatos::retornarObjetoActivoPorCampo($pedido->id_mesa, 'id_mesa', 'pedido', 'Pedido');
+        $idMesaAux = AccesoDatos::retornarObjetoActivoPorCampo($servicio->id_mesa, 'id_mesa', 'servicio', 'Servicio');
+        //var_dump($idMesaAux); 
         if(sizeof($idMesaAux) == 0)
         {
-            $idUsuarioAux = AccesoDatos::retornarObjetoActivoPorCampo($pedido->id_usuario, 'id', 'usuario', 'Usuario');
+            $idUsuarioAux = AccesoDatos::retornarObjetoActivoPorCampo($servicio->id_usuario, 'id', 'usuario', 'Usuario');
+            //var_dump($idUsuarioAux); 
             $retorno = 2;
             if(sizeof($idUsuarioAux) > 0)
             {
-                $pedido->crearRegistro();
+                $servicio->crearRegistro();
                 $retorno = 1;
             }
         }
@@ -38,12 +40,12 @@ class Pedido implements IAbm
     public static function Baja($id)
     {
         $retorno = 0;
-        $pedidoAux = AccesoDatos::retornarObjetoActivo($id, 'pedido', 'Pedido');
+        $pedidoAux = AccesoDatos::retornarObjetoActivo($id, 'servicio', 'Servicio');
 
         if($pedidoAux != null)
         {
             AccesoDatos::borrarPorCondicion($pedidoAux[0]->id, 'id_pedido', 'pedido_producto');
-            AccesoDatos::borrarRegistro($id, 'pedido');
+            AccesoDatos::borrarRegistro($id, 'servicio');
             $retorno = 1;
         }         
         return $retorno;
@@ -52,10 +54,10 @@ class Pedido implements IAbm
     public static function Modificacion($pedido)
     {
         $retorno = 0;
-        $pedidoAux = AccesoDatos::retornarObjetoActivo($pedido->id, 'pedido', 'Pedido');
+        $pedidoAux = AccesoDatos::retornarObjetoActivo($pedido->id, 'servicio', 'Servicio');
         if(sizeof($pedidoAux) > 0)
         {
-            $mesaAux = AccesoDatos::retornarObjetoActivoPorCampo($pedido->id_mesa, 'id_mesa', 'pedido', 'Pedido');
+            $mesaAux = AccesoDatos::retornarObjetoActivoPorCampo($pedido->id_mesa, 'id_mesa', 'servicio', 'Servicio');
             $mesaAuxEnMesa = AccesoDatos::retornarObjetoActivoPorCampo($pedido->id_mesa, 'id', 'mesa', 'Mesa');
             $retorno = 1; 
             if($mesaAux == null && $mesaAuxEnMesa != null)
@@ -76,7 +78,7 @@ class Pedido implements IAbm
 
     public static function CambiarEstado($idPedido, $idEstado)
     {
-        $pedido = AccesoDatos::retornarObjetoActivo($idPedido, 'pedido', 'Pedido');
+        $pedido = AccesoDatos::retornarObjetoActivo($idPedido, 'servicio', 'Servicio');
         $pedido[0]->estado = $idEstado; //comiendo
         $retorno = 'Mesa pasada a comiendo.';
         switch($idEstado)
@@ -102,10 +104,10 @@ class Pedido implements IAbm
 
         $sql = "SELECT pp.cantidad as cantidad, pr.precio as precio 
                 FROM mesa m
-                    LEFT JOIN pedido p ON m.id = p.id_mesa
-                    LEFT JOIN pedido_producto pp ON p.id = pp.id_pedido
+                    LEFT JOIN servicio s ON m.id = s.id_mesa
+                    LEFT JOIN pedido_producto pp ON s.id = pp.id_pedido
                     LEFT JOIN producto pr ON pr.id = pp.id_producto
-                WHERE p.id_mesa = $mesa AND p.estado = 2 AND pp.estado = 2;";       
+                WHERE s.id_mesa = $mesa AND s.estado = 2 AND pp.estado = 2;";       
         $lista = AccesoDatos::ObtenerConsulta($sql);
 
         foreach($lista as $item)
@@ -118,8 +120,8 @@ class Pedido implements IAbm
 
     public function GuardarImagen()
     {     
-        $nombreFoto = "foto_pedido_".$this->id.".jpg";
-        $destino = ".".DIRECTORY_SEPARATOR."fotospedidos".DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR;
+        $nombreFoto = "foto_servicio_".$this->id.".jpg";
+        $destino = ".".DIRECTORY_SEPARATOR."fotosservicios".DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR;
 
         if(!file_exists($destino))
         {
@@ -139,7 +141,7 @@ class Pedido implements IAbm
         try
         {
             $objAccesoDatos = AccesoDatos::obtenerInstancia();
-            $consulta = $objAccesoDatos->prepararConsulta("INSERT INTO  pedido (id_mesa, id_cliente, id_usuario, estado, created_at, fecha_prevista, updated_at, activo) 
+            $consulta = $objAccesoDatos->prepararConsulta("INSERT INTO  servicio (id_mesa, id_cliente, id_usuario, estado, created_at, fecha_prevista, updated_at, activo) 
                                                                   VALUES (:id_mesa, :id_cliente, :id_usuario, :estado, :created_at, :fecha_prevista, :updated_at, :activo)");
             $consulta->bindValue(':id_mesa', $this->id_mesa, PDO::PARAM_STR);
             $consulta->bindValue(':id_cliente', $this->id_cliente, PDO::PARAM_STR); 

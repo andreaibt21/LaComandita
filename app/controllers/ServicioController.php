@@ -1,9 +1,9 @@
 <?php
 
 include_once("entidades/Cliente.php");
-include_once("entidades/Pedido.php");
+include_once("entidades/Servicio.php");
 
-class PedidoController
+class ServicioController
 {
     public function Alta($request, $response, $args)
     {
@@ -12,19 +12,19 @@ class PedidoController
             $params = $request->getParsedBody();
             //var_dump($params);
             $cliente = new Cliente($params["cliente"]);
-            $pedido = new Pedido();
+            $pedido = new Servicio();
             $pedido->id_mesa= $params["mesa"];
             $pedido->id_cliente =  Cliente::Alta($cliente);
             $pedido->id_usuario= $params["id_usuario"];
             $pedido->fecha_prevista = $params["estara_en"];
-            $alta = Pedido::Alta($pedido);
+            $alta = Servicio::Alta($pedido);
             switch($alta)
             {
                 case '1':
-                    $respuesta = 'Pedido generado.';
+                    $respuesta = 'Servicio generado.';
                     break;
                 case '0':
-                    $respuesta = 'No se generó el pedido pues la mesa está ocupada';
+                    $respuesta = 'No se puede iniciar el servicio porque la mesa está ocupada';
                     break;   
                 case '2':
                     $respuesta = 'Usuario inválido.';
@@ -51,14 +51,14 @@ class PedidoController
         {
             //var_dump($args);
             $idDelPedido = $args["id"];
-            $modificacion = Pedido::Baja($idDelPedido);
+            $modificacion = Servicio::Baja($idDelPedido);
             switch($modificacion)
             {
                 case 0:
                     $respuesta = "No existe este pedido.";
                     break;
                 case 1:
-                    $respuesta = "Pedido borrado con éxito.";
+                    $respuesta = "Servicio borrado con éxito.";
                     break;
                 default:
                     $respuesta = "Nunca llega a la modificacion";
@@ -82,11 +82,11 @@ class PedidoController
         try
         {
             $params = $request->getParsedBody();
-            $pedido = new Pedido();
+            $pedido = new Servicio();
             $pedido->id = $params["idDelPedido"];
             $pedido->id_mesa = $params["nuevaMesa"];
             $pedido->id_usuario = $params["nuevoMozo"];
-            $modificacion = Pedido::Modificacion($pedido);
+            $modificacion = Servicio::Modificacion($pedido);
             switch($modificacion)
             {
                 case 0:
@@ -96,7 +96,7 @@ class PedidoController
                     $respuesta = "Mesa no disponible.";
                     break;
                 case 2:
-                    $respuesta = "Pedido modificado con éxito.";
+                    $respuesta = "Servicio modificado con éxito.";
                     break;
                 case 3:
                     $respuesta = "No existe el empleado asignado.";
@@ -123,7 +123,7 @@ class PedidoController
     {
         try
         {
-            $lista = AccesoDatos::ImprimirTabla('pedido', 'Pedido');
+            $lista = AccesoDatos::ImprimirTabla('pedido', 'Servicio');
             $payload = json_encode(array("listaPedidos" => $lista));
             $response->getBody()->write($payload);
             $newResponse = $response->withHeader('Content-Type', 'application/json');
@@ -143,7 +143,7 @@ class PedidoController
         try
         {
             $params = $request->getParsedBody();
-            $pedido = new Pedido();
+            $pedido = new Servicio();
             $pedido->id = $params["id"];
             $archivo = ($_FILES["archivo"]);
             $pedido->foto = ($archivo["tmp_name"]);

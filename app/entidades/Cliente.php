@@ -7,7 +7,6 @@ class Cliente
     public $id;
     public $nombre;
 
-    
     public $activo;
     public $created_at;
     public $updated_at;
@@ -29,7 +28,7 @@ class Cliente
        {
         $objAccesoDatos = AccesoDatos::obtenerInstancia();
         $consulta = $objAccesoDatos->prepararConsulta("INSERT INTO cliente (nombre, activo, created_at, updated_at) 
-                                                              VALUES (:nombre, :activo, :created_at, :updated_at)");
+                                                       VALUES (:nombre, :activo, :created_at, :updated_at)");
         $consulta->bindValue(':nombre', $this->nombre, PDO::PARAM_STR);
         $consulta->bindValue(':activo', '1', PDO::PARAM_STR);
         $fecha = new DateTime(date("d-m-Y H:i:s"));

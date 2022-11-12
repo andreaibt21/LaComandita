@@ -163,6 +163,17 @@ class UsuarioController
     {
         try
         {
+            // $objAccesoDatos = AccesoDatos::obtenerInstancia();
+            // $consulta = $objAccesoDatos->prepararConsulta("SELECT usuario.id, 
+            //                                                       usuario.dni, 
+            //                                                       tipo_usuario.nombre, 
+            //                                                       usuario.activo 
+            //                                                FROM `usuario` 
+            //                                                INNER JOIN tipo_usuario 
+            //                                                ON usuario.tipo = tipo_usuario.id");
+            // $consulta->execute();
+
+            // return $consulta->fetchAll(PDO::FETCH_ASSOC); 
             $lista = AccesoDatos::ImprimirTabla('usuario', 'Usuario');
             $payload = json_encode(array("listaUsuarios" => $lista));
             $response->getBody()->write($payload);

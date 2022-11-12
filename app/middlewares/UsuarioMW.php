@@ -33,11 +33,15 @@ class UsuarioMW
         try 
         {
             $tipo = AccesoDatos::retornarObjetoActivoPorCampo('mozo', 'nombre', 'tipo_usuario', 'TipoUsuario');
+            //var_dump($tipo);
             $header = $request->getHeaderLine('Authorization');
             if(!empty($header))
             {
                 $token = trim(explode("Bearer", $header)[1]);
                 $data = Token::verifyToken($token);
+                //var_dump($data->tipo);
+                //var_dump($data);
+                //var_dump($tipo[0]->id);
                 if($data->tipo == $tipo[0]->id)
                 {
                     return $handler->handle($request);
