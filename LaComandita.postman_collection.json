@@ -1,0 +1,789 @@
+{
+	"info": {
+		"_postman_id": "49a44b39-773a-4a93-aaa7-034cc7522311",
+		"name": "LaComandita",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20134258"
+	},
+	"item": [
+		{
+			"name": "Alta Usuario",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NjgwMzU3ODAsImV4cCI6MjE5MzYzNTc4MCwiaWRVc3VhcmlvIjoiOCIsInRpcG8iOiIyIn0.dFsmpTvrvmMtolRz7Cvn8nDedyLIj92dWb-28qVNLRI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "dni",
+							"value": "20020",
+							"type": "text"
+						},
+						{
+							"key": "clave",
+							"value": "1234",
+							"type": "text"
+						},
+						{
+							"key": "tipo",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/app/empleados/alta/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"app",
+						"empleados",
+						"alta",
+						""
+					],
+					"query": [
+						{
+							"key": "dni",
+							"value": "20000",
+							"disabled": true
+						},
+						{
+							"key": "clave",
+							"value": "12345",
+							"disabled": true
+						},
+						{
+							"key": "tipo",
+							"value": "2",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar Empleados",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NjgwMzU3ODAsImV4cCI6MjE5MzYzNTc4MCwiaWRVc3VhcmlvIjoiOCIsInRpcG8iOiIyIn0.dFsmpTvrvmMtolRz7Cvn8nDedyLIj92dWb-28qVNLRI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/app/empleados/lista/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"app",
+						"empleados",
+						"lista",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LoginSocio",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "dni",
+							"value": "20020",
+							"type": "text"
+						},
+						{
+							"key": "clave",
+							"value": "1234",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/app/empleados/login/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"app",
+						"empleados",
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EmpleadoBaja",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NjgwMzU3ODAsImV4cCI6MjE5MzYzNTc4MCwiaWRVc3VhcmlvIjoiOCIsInRpcG8iOiIyIn0.dFsmpTvrvmMtolRz7Cvn8nDedyLIj92dWb-28qVNLRI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/app/empleados/baja/15/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"app",
+						"empleados",
+						"baja",
+						"15",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AltaProducto",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "sector",
+							"value": "barra",
+							"type": "text"
+						},
+						{
+							"key": "nombre",
+							"value": "copa tinto",
+							"type": "text"
+						},
+						{
+							"key": "precio",
+							"value": "500",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/app/productos/alta/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"app",
+						"productos",
+						"alta",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EmpleadosLista",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "yJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NjgyMTg2MTMsImV4cCI6MjE5MzgxODYxMywiaWRVc3VhcmlvIjoxOCwidGlwbyI6MX0.Yb_OicvIxy8A8bLInfzgKnKWGuKYsx2Hbj8KmxOT2mM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/app/empleados/lista/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"app",
+						"empleados",
+						"lista",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MesaAlta",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NjkwNzg5NTksImV4cCI6MjE5NDY3ODk1OSwiaWRVc3VhcmlvIjoxOCwidGlwbyI6MX0.NCErSnUpeWNfyG5YxwpJoxYUqrrIz6lS51ghqFP03ZY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "nombre",
+							"value": "G",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/app/mesa/alta/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"app",
+						"mesa",
+						"alta",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MesaLista",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/app/mesa/lista/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"app",
+						"mesa",
+						"lista",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LoginMozo",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "dni",
+							"value": "20009",
+							"type": "text"
+						},
+						{
+							"key": "clave",
+							"value": "1234",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/app/empleados/login/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"app",
+						"empleados",
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PedidoAlta",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NjgyMjY1NTAsImV4cCI6MjE5MzgyNjU1MCwiaWRVc3VhcmlvIjoxNiwidGlwbyI6Mn0.5IpNm0Ql7mzHo8ZtNcyIxnn4CGNWieGY3skFzVmmZNo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "cliente",
+							"value": "Jose",
+							"type": "text"
+						},
+						{
+							"key": "mesa",
+							"value": "103",
+							"type": "text"
+						},
+						{
+							"key": "id_usuario",
+							"value": "16",
+							"type": "text"
+						},
+						{
+							"key": "estara_en",
+							"value": "45",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/app/pedido/alta/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"app",
+						"pedido",
+						"alta",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PedidoSubirFoto",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NjkwNzk5MDUsImV4cCI6MjE5NDY3OTkwNSwiaWRVc3VhcmlvIjoxNiwidGlwbyI6Mn0.9mvsSzJyhkWKnBIU7xaF9wphJz-ByxqoGaH4wugZoKs",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "id",
+							"value": "15",
+							"type": "text"
+						},
+						{
+							"key": "archivo",
+							"type": "file",
+							"src": "/C:/Users/orne_/OneDrive/Documentos/----PROGRAMACION INFORMATICA----/Programacion III/fotomesa.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/app/pedido/subirfoto",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"app",
+						"pedido",
+						"subirfoto"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PedidoListar",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "id",
+							"value": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/app/pedido/lista/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"app",
+						"pedido",
+						"lista",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PedidoBaja",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NjkwNzk5MDUsImV4cCI6MjE5NDY3OTkwNSwiaWRVc3VhcmlvIjoxNiwidGlwbyI6Mn0.9mvsSzJyhkWKnBIU7xaF9wphJz-ByxqoGaH4wugZoKs",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/app/pedido/baja/13",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"app",
+						"pedido",
+						"baja",
+						"13"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PedidoModificar",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NjkwNzk5MDUsImV4cCI6MjE5NDY3OTkwNSwiaWRVc3VhcmlvIjoxNiwidGlwbyI6Mn0.9mvsSzJyhkWKnBIU7xaF9wphJz-ByxqoGaH4wugZoKs",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "idPedido",
+							"value": "15",
+							"type": "text"
+						},
+						{
+							"key": "nuevaMesa",
+							"value": "105",
+							"type": "text"
+						},
+						{
+							"key": "nuevoMozo",
+							"value": "16",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/app/pedido/modificacion",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"app",
+						"pedido",
+						"modificacion"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pedido_ProductoAlta",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NjkwNzk5MDUsImV4cCI6MjE5NDY3OTkwNSwiaWRVc3VhcmlvIjoxNiwidGlwbyI6Mn0.9mvsSzJyhkWKnBIU7xaF9wphJz-ByxqoGaH4wugZoKs",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "idPedido",
+							"value": "15",
+							"type": "text"
+						},
+						{
+							"key": "idProducto",
+							"value": "7",
+							"type": "text"
+						},
+						{
+							"key": "cantidad",
+							"value": "7",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/app/pedidoproducto/alta",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"app",
+						"pedidoproducto",
+						"alta"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pedido_ProductoModificacion",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NjkwNzk5MDUsImV4cCI6MjE5NDY3OTkwNSwiaWRVc3VhcmlvIjoxNiwidGlwbyI6Mn0.9mvsSzJyhkWKnBIU7xaF9wphJz-ByxqoGaH4wugZoKs",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "id",
+							"value": "7",
+							"type": "text"
+						},
+						{
+							"key": "idProducto",
+							"value": "8",
+							"type": "text"
+						},
+						{
+							"key": "cantidad",
+							"value": "8",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/app/pedidoproducto/modificacion",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"app",
+						"pedidoproducto",
+						"modificacion"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pedido_ProductoBaja",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NjkwNzk5MDUsImV4cCI6MjE5NDY3OTkwNSwiaWRVc3VhcmlvIjoxNiwidGlwbyI6Mn0.9mvsSzJyhkWKnBIU7xaF9wphJz-ByxqoGaH4wugZoKs",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/app/pedidoproducto/baja/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"app",
+						"pedidoproducto",
+						"baja",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PedidoPreparacion",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "id",
+							"value": "15",
+							"type": "text"
+						},
+						{
+							"key": "usuario",
+							"value": "13",
+							"type": "text"
+						},
+						{
+							"key": "tardanza",
+							"value": "45",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/app/pedido/enpreparacion",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"app",
+						"pedido",
+						"enpreparacion"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PediloListo",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "id",
+							"value": "15",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/app/pedido/listo",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"app",
+						"pedido",
+						"listo"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
