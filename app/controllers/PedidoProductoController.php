@@ -13,7 +13,7 @@ class PedidoProductoController
             //var_dump($params);
             $pedidoProducto = new PedidoProducto();
             $pedidoProducto->id_pedido = $params["idPedido"];
-            $pedidoProducto->id_producto = $params["producto"];
+            $pedidoProducto->id_producto = $params["idProducto"];
             $pedidoProducto->cantidad = $params["cantidad"];
             $alta = PedidoProducto::Alta($pedidoProducto);
     
@@ -78,7 +78,7 @@ class PedidoProductoController
         {
             $params = $request->getParsedBody();
             $pedidoProducto = new PedidoProducto();
-            $pedidoProducto->id = $params["idDelPedido"];
+            $pedidoProducto->id = $params["id"];
             $pedidoProducto->id_producto = $params["idProducto"];
             $pedidoProducto->id_cantidad = $params["cantidad"];
             $modificacion = PedidoProducto::Modificacion($pedidoProducto);

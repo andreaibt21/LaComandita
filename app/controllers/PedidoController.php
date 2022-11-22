@@ -1,9 +1,9 @@
 <?php
 
 include_once("entidades/Cliente.php");
-include_once("entidades/Servicio.php");
+include_once("entidades/Pedido.php");
 
-class ServicioController
+class PedidoController
 {
     public function Alta($request, $response, $args)
     {
@@ -12,19 +12,19 @@ class ServicioController
             $params = $request->getParsedBody();
             //var_dump($params);
             $cliente = new Cliente($params["cliente"]);
-            $servicio = new Servicio();
-            $servicio->id_mesa= $params["mesa"];
-            $servicio->id_cliente =  Cliente::Alta($cliente);
-            $servicio->id_usuario= $params["id_usuario"];
-            $servicio->fecha_prevista = $params["estara_en"];
-            $alta = Servicio::Alta($servicio);
+            $pedido = new Pedido();
+            $pedido->id_mesa= $params["mesa"];
+            $pedido->id_cliente =  Cliente::Alta($cliente);
+            $pedido->id_usuario= $params["id_usuario"];
+            $pedido->fecha_prevista = $params["estara_en"];
+            $alta = Pedido::Alta($pedido);
             switch($alta)
             {
                 case '1':
-                    $respuesta = 'Servicio generado.';
+                    $respuesta = 'Pedido generado.';
                     break;
                 case '0':
-                    $respuesta = 'No se puede iniciar el servicio porque la mesa está ocupada';
+                    $respuesta = 'No se generó el pedido pues la mesa está ocupada';
                     break;   
                 case '2':
                     $respuesta = 'Usuario inválido.';
@@ -50,15 +50,15 @@ class ServicioController
         try
         {
             //var_dump($args);
-            $idServicio = $args["id"];
-            $modificacion = Servicio::Baja($idServicio);
+            $idDelPedido = $args["id"];
+            $modificacion = Pedido::Baja($idDelPedido);
             switch($modificacion)
             {
                 case 0:
                     $respuesta = "No existe este pedido.";
                     break;
                 case 1:
-                    $respuesta = "Servicio borrado con éxito.";
+                    $respuesta = "Pedido borrado con éxito.";
                     break;
                 default:
                     $respuesta = "Nunca llega a la modificacion";
@@ -82,21 +82,21 @@ class ServicioController
         try
         {
             $params = $request->getParsedBody();
-            $servicio = new Servicio();
-            $servicio->id = $params["idDelPedido"];
-            $servicio->id_mesa = $params["nuevaMesa"];
-            $servicio->id_usuario = $params["nuevoMozo"];
-            $modificacion = Servicio::Modificacion($servicio);
+            $pedido = new Pedido();
+            $pedido->id = $params["idPedido"];
+            $pedido->id_mesa = $params["nuevaMesa"];
+            $pedido->id_usuario = $params["nuevoMozo"];
+            $modificacion = Pedido::Modificacion($pedido);
             switch($modificacion)
             {
                 case 0:
-                    $respuesta = "Este ID no corresponde a ningún servicio.";
+                    $respuesta = "Este ID no corresponde a ningún pedido.";
                     break;
                 case 1:
                     $respuesta = "Mesa no disponible.";
                     break;
                 case 2:
-                    $respuesta = "Servicio modificado con éxito.";
+                    $respuesta = "Pedido modificado con éxito.";
                     break;
                 case 3:
                     $respuesta = "No existe el empleado asignado.";
@@ -123,7 +123,7 @@ class ServicioController
     {
         try
         {
-            $lista = AccesoDatos::ImprimirTabla('pedido', 'Servicio');
+            $lista = AccesoDatos::ImprimirTabla('pedido', 'Pedido');
             $payload = json_encode(array("listaPedidos" => $lista));
             $response->getBody()->write($payload);
             $newResponse = $response->withHeader('Content-Type', 'application/json');
@@ -143,11 +143,11 @@ class ServicioController
         try
         {
             $params = $request->getParsedBody();
-            $servicio = new Servicio();
-            $servicio->id = $params["id"];
+            $pedido = new Pedido();
+            $pedido->id = $params["id"];
             $archivo = ($_FILES["archivo"]);
-            $servicio->foto = ($archivo["tmp_name"]);
-            $servicio->GuardarImagen();
+            $pedido->foto = ($archivo["tmp_name"]);
+            $pedido->GuardarImagen();
             //var_dump($archivo);
             $payload = json_encode("Carga exitosa.");
             $response->getBody()->write($payload);
@@ -227,6 +227,27 @@ class ServicioController
         {
             return $newResponse;
         }  
+    }
+
+    public function HacerPdf($request, $response, $args)
+    {
+        try
+        {
+            $params = $request->getParsedBody();
+            $pedido = $params["pedido"];
+            $lista = PDF::hacerPDF($pedido);
+            $payload = json_encode(array("listaPedidosCerrados" => $lista));
+            $response->getBody()->write($payload);
+            $newResponse = $response->withHeader('Content-Type', 'application/json');
+        }
+        catch(Throwable $mensaje)
+        {
+            printf("Error al listar: <br> $mensaje .<br>");
+        }
+        finally
+        {
+            return $newResponse;
+        }    
     }
 
    

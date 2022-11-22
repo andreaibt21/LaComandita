@@ -133,7 +133,7 @@ class Usuario implements IAbm
             $consulta->bindValue(':tipo', $this->tipo, PDO::PARAM_STR);
             $consulta->bindValue(':activo', '1', PDO::PARAM_STR);
             $fecha = new DateTime(date("d-m-Y H:i:s"));
-            $consulta->bindValue(':created_at', date_format($fecha, 'Y-m-d H:i:s')); //POR QUÉ NO GRABA LA HORA?
+            $consulta->bindValue(':created_at', date_format($fecha, 'Y-m-d H:i:s')); 
             $consulta->bindValue(':updated_at', date_format($fecha, 'Y-m-d H:i:s'));
             $consulta->execute();
             $retorno =  $objAccesoDatos->obtenerUltimoId();

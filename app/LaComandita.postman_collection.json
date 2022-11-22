@@ -1,0 +1,458 @@
+{
+	"info": {
+		"_postman_id": "49a44b39-773a-4a93-aaa7-034cc7522311",
+		"name": "LaComandita",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20134258"
+	},
+	"item": [
+		{
+			"name": "Alta Usuario",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NjgwMzU3ODAsImV4cCI6MjE5MzYzNTc4MCwiaWRVc3VhcmlvIjoiOCIsInRpcG8iOiIyIn0.dFsmpTvrvmMtolRz7Cvn8nDedyLIj92dWb-28qVNLRI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "dni",
+							"value": "20020",
+							"type": "text"
+						},
+						{
+							"key": "clave",
+							"value": "1234",
+							"type": "text"
+						},
+						{
+							"key": "tipo",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/app/empleados/alta/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"app",
+						"empleados",
+						"alta",
+						""
+					],
+					"query": [
+						{
+							"key": "dni",
+							"value": "20000",
+							"disabled": true
+						},
+						{
+							"key": "clave",
+							"value": "12345",
+							"disabled": true
+						},
+						{
+							"key": "tipo",
+							"value": "2",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar Empleados",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NjgwMzU3ODAsImV4cCI6MjE5MzYzNTc4MCwiaWRVc3VhcmlvIjoiOCIsInRpcG8iOiIyIn0.dFsmpTvrvmMtolRz7Cvn8nDedyLIj92dWb-28qVNLRI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/app/empleados/lista/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"app",
+						"empleados",
+						"lista",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LoginSocio",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "dni",
+							"value": "20020",
+							"type": "text"
+						},
+						{
+							"key": "clave",
+							"value": "1234",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/app/empleados/login/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"app",
+						"empleados",
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EmpleadoBaja",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NjgwMzU3ODAsImV4cCI6MjE5MzYzNTc4MCwiaWRVc3VhcmlvIjoiOCIsInRpcG8iOiIyIn0.dFsmpTvrvmMtolRz7Cvn8nDedyLIj92dWb-28qVNLRI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/app/empleados/baja/15/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"app",
+						"empleados",
+						"baja",
+						"15",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AltaProducto",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "sector",
+							"value": "barra",
+							"type": "text"
+						},
+						{
+							"key": "nombre",
+							"value": "copa tinto",
+							"type": "text"
+						},
+						{
+							"key": "precio",
+							"value": "500",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/app/productos/alta/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"app",
+						"productos",
+						"alta",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EmpleadosLista",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "yJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NjgyMTg2MTMsImV4cCI6MjE5MzgxODYxMywiaWRVc3VhcmlvIjoxOCwidGlwbyI6MX0.Yb_OicvIxy8A8bLInfzgKnKWGuKYsx2Hbj8KmxOT2mM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/app/empleados/lista/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"app",
+						"empleados",
+						"lista",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MesaAlta",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "nombre",
+							"value": "F",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/app/mesa/alta/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"app",
+						"mesa",
+						"alta",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MesaLista",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/app/mesa/lista/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"app",
+						"mesa",
+						"lista",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LoginMoso",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "dni",
+							"value": "20009",
+							"type": "text"
+						},
+						{
+							"key": "clave",
+							"value": "1234",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/app/empleados/login/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"app",
+						"empleados",
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ServicioAlta",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NjgyMjY1NTAsImV4cCI6MjE5MzgyNjU1MCwiaWRVc3VhcmlvIjoxNiwidGlwbyI6Mn0.5IpNm0Ql7mzHo8ZtNcyIxnn4CGNWieGY3skFzVmmZNo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "cliente",
+							"value": "Catita",
+							"type": "text"
+						},
+						{
+							"key": "mesa",
+							"value": "103",
+							"type": "text"
+						},
+						{
+							"key": "id_usuario",
+							"value": "8",
+							"type": "text"
+						},
+						{
+							"key": "estara_en",
+							"value": "45",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/app/servicio/alta/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"app",
+						"servicio",
+						"alta",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ServicioSubirFoto",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2NjgyMjY1NTAsImV4cCI6MjE5MzgyNjU1MCwiaWRVc3VhcmlvIjoxNiwidGlwbyI6Mn0.5IpNm0Ql7mzHo8ZtNcyIxnn4CGNWieGY3skFzVmmZNo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "id",
+							"value": "14",
+							"type": "text"
+						},
+						{
+							"key": "archivo",
+							"type": "file",
+							"src": "/C:/Users/orne_/OneDrive/Documentos/----PROGRAMACION INFORMATICA----/Programacion III/fotomesa.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/app/servicio/subirfoto",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"app",
+						"servicio",
+						"subirfoto"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

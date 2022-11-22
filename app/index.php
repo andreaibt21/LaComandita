@@ -18,7 +18,7 @@ require_once './db/AccesoDatos.php';
 include_once './controllers/UsuarioController.php';
 include_once './controllers/ProductoController.php';
 include_once './controllers/MesaController.php';
-include_once './controllers/ServicioController.php';
+include_once './controllers/PedidoController.php';
 include_once './controllers/PedidoProductoController.php';
 
 include_once './controllers/SectorController.php';
@@ -59,7 +59,9 @@ $app->group('/sector', function (RouteCollectorProxy $group)
   $group->post('/modificacion[/]', \SectorController::class . ':Modificacion');
   $group->delete('/baja/{id}[/]', \SectorController::class . ':Baja');
   $group->get('/lista[/]', \SectorController::class . ':Listar');  
-});
+})
+->add(\UsuarioMW::class. ':ValidarSocio')
+->add(\UsuarioMW::class. ':ValidarToken');;
 
 //Tipo de usuario 1-socio 2-mozo 3-bartender 4-cervecero 5-cocinero 6-repostero
 $app->group('/tipousuario', function (RouteCollectorProxy $group) 
@@ -69,7 +71,9 @@ $app->group('/tipousuario', function (RouteCollectorProxy $group)
   $group->post('/modificacion[/]', \TipoUsuarioController::class . ':Modificacion');
   $group->delete('/baja/{id}[/]', \TipoUsuarioController::class . ':Baja');
   $group->get('/lista[/]', \TipoUsuarioController::class . ':Listar'); 
-}); 
+})
+->add(\UsuarioMW::class. ':ValidarSocio')
+->add(\UsuarioMW::class. ':ValidarToken'); 
 
 //Usuarios
 $app->group('/empleados', function (RouteCollectorProxy $group) 
@@ -88,7 +92,9 @@ $app->group('/productos', function (RouteCollectorProxy $group)
   $group->delete('/baja/{id}[/]', \ProductoController::class . ':Baja');
   $group->post('/modificacion[/]', \ProductoController::class . ':Modificacion');  
   $group->get('/lista[/]', \ProductoController::class . ':Listar');  
-});
+})
+->add(\UsuarioMW::class. ':ValidarSocio')
+->add(\UsuarioMW::class. ':ValidarToken');
 
 //Mesa
 $app->group('/mesa', function (RouteCollectorProxy $group) 
@@ -98,23 +104,47 @@ $app->group('/mesa', function (RouteCollectorProxy $group)
   $group->delete('/baja/{id}[/]', \MesaController::class . ':Baja');
   $group->post('/modificacion[/]', \MesaController::class . ':Modificacion'); 
   $group->get('/lista[/]', \MesaController::class . ':Listar'); 
-});
+})
+->add(\UsuarioMW::class. ':ValidarSocio')
+->add(\UsuarioMW::class. ':ValidarToken');
 
 //Pedido
-$app->group('/servicio', function (RouteCollectorProxy $group) 
+$app->group('/pedido', function (RouteCollectorProxy $group) 
 {
   //ABM
-  $group->post('/alta[/]', \ServicioController::class . ':Alta');
-  $group->delete('/baja/{id}[/]', \ServicioController::class . ':Baja');
-  $group->post('/modificacion[/]', \ServicioController::class . ':Modificacion');
+  $group->post('/alta[/]', \PedidoController::class . ':Alta');
+  $group->delete('/baja/{id}[/]', \PedidoController::class . ':Baja');
+  $group->post('/modificacion[/]', \PedidoController::class . ':Modificacion');
   //Subir Foto
-  $group->post('/subirfoto[/]', \ServicioController::class . ':SubirFoto');
+  $group->post('/subirfoto[/]', \PedidoController::class . ':SubirFoto');
   //Manejo del pedido
-  $group->get('/paraservir[/]', \ReportesAPI::class . ':PedidoProductoListoParaServir'); 
-  $group->post('/comiendo[/]', \ServicioController::class . ':PasarAComiendo'); 
-  $group->post('/pagando[/]', \ServicioController::class . ':PasarAPagando'); 
+  $group->get('/paraservir[/]', \ReportesController::class . ':PedidoProductoListoParaServir'); 
+  $group->post('/comiendo[/]', \PedidoController::class . ':PasarAComiendo'); 
+  $group->post('/pagando[/]', \PedidoController::class . ':PasarAPagando'); 
 })
   ->add(\UsuarioMW::class. ':ValidarMozo')
   ->add(\UsuarioMW::class. ':ValidarToken');
+
+  $app->get('/pedido/lista[/]', \PedidoController::class . ':Listar');
+
+//Cerrar pedido
+$app->post('/pedido/cerrar[/]', \PedidoController::class . ':CerrarPedido') 
+  ->add(\UsuarioMW::class. ':ValidarSocio')
+  ->add(\UsuarioMW::class. ':ValidarToken');
+
+//PedidoProducto
+$app->group('/pedidoproducto', function (RouteCollectorProxy $group) 
+{
+  //ABM
+  $group->post('/alta[/]', \PedidoProductoController::class . ':Alta'); 
+  $group->delete('/baja/{id}[/]', \PedidoProductoController::class . ':Baja'); 
+  $group->post('/modificacion[/]', \PedidoProductoController::class . ':Modificacion'); 
+})
+  ->add(\UsuarioMW::class. ':ValidarMozo')
+  ->add(\UsuarioMW::class. ':ValidarToken');
+
+  //Manejo estados Pedido Producto
+$app->post('/pedido/enpreparacion[/]', \PedidoProductoController::class . ':PedidoEnPreparacion');
+$app->post('/pedido/listo[/]', \PedidoProductoController::class . ':PedidoListo'); 
 
 $app->run();
