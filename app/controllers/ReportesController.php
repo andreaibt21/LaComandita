@@ -52,6 +52,7 @@ class ReportesController
         try
         {
             $lista = Reportes::EstadoMesas();
+            //var_dump($lista); 
             $payload = json_encode(array("estadoMesas" => $lista));
             $response->getBody()->write($payload);
             $newResponse = $response->withHeader('Content-Type', 'application/json');

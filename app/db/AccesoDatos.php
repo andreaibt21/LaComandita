@@ -43,16 +43,15 @@ class AccesoDatos
         trigger_error('ERROR: La clonación de este objeto no está permitida', E_USER_ERROR);
     }
 
-    public static function ObtenerConsulta($sql, $clase = null)
+    public static function ObtenerConsulta($sql, $clase=null)
     {
         try
-        {   var_dump($sql);
+        {   //var_dump($sql);
             $conexion = AccesoDatos::obtenerInstancia();
             $consulta = $conexion->prepararConsulta($sql);
             //var_dump($consulta);
             $consulta->execute();
             $retorno = $consulta->fetchAll(PDO::FETCH_CLASS, $clase);
-            
         }
         catch(Throwable $mensaje)
         {
@@ -169,9 +168,13 @@ class AccesoDatos
                     LEFT JOIN producto pr ON pp.id_producto = pr.id
                     LEFT JOIN sector s ON pr.id_sector = s.id
                 WHERE s.id = $sector and pp.estado < 2
-                ORDER BY pp.id_pedido, pp.created_at;";
-         
-        return AccesoDatos::ObtenerConsulta($sql);
+                ORDER BY pp.id_pedido, pp.created_at";
+
+          $conexion = AccesoDatos::obtenerInstancia();
+          $consulta = $conexion->prepararConsulta($sql);
+          //var_dump($consulta);
+          $consulta->execute();
+        return $consulta->fetchAll();
 
     }
 

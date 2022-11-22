@@ -151,7 +151,7 @@ class PedidoProductoController
     public function ListarPedidosCocina($request, $response, $args)
     {
         try
-        {
+        {   $clase = null;
             $id = AccesoDatos::retornarObjetoActivoPorCampo('cocina', 'nombre', 'sector', 'Sector');
             $lista = AccesoDatos::ObtenerPedidosPorSector($id[0]->id);
             $payload = json_encode(array("PedidosActivosCocina" => $lista));

@@ -14,7 +14,11 @@ class Reportes
                     left JOIN pedido p ON pp.id_pedido = p.id 
                 WHERE pp.estado = 2 AND pp.activo = 1;";
         
-        return AccesoDatos::ObtenerConsulta($sql, null);
+        $conexion = AccesoDatos::obtenerInstancia();
+        $consulta = $conexion->prepararConsulta($sql);
+        //var_dump($consulta);
+        $consulta->execute();
+        return $consulta->fetchAll();
     }
     // 4 - El cliente
     public static function DemoraPedidoMesa($mesa, $pedido)
@@ -68,10 +72,13 @@ class Reportes
                     as Estado
                 FROM pedido p LEFT JOIN mesa m ON p.id_mesa = m.id
                 WHERE m.activo = 1 AND p.activo = 1 AND p.estado < 4
-                ORDER BY m.id; ";
+                ORDER BY m.id;";
         
-        return AccesoDatos::ObtenerConsulta($sql, null);
-
+        $conexion = AccesoDatos::obtenerInstancia();
+        $consulta = $conexion->prepararConsulta($sql);
+        //var_dump($consulta);
+        $consulta->execute();
+        return $consulta->fetchAll();
     }
 
     // 12 - Solo socios

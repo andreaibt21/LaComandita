@@ -20,7 +20,7 @@ include_once './controllers/ProductoController.php';
 include_once './controllers/MesaController.php';
 include_once './controllers/PedidoController.php';
 include_once './controllers/PedidoProductoController.php';
-
+include_once './controllers/ReportesController.php';
 include_once './controllers/SectorController.php';
 include_once './controllers/TipoUsuarioController.php';
 
@@ -143,7 +143,33 @@ $app->group('/pedidoproducto', function (RouteCollectorProxy $group)
   ->add(\UsuarioMW::class. ':ValidarMozo')
   ->add(\UsuarioMW::class. ':ValidarToken');
 
-  //Manejo estados Pedido Producto
+  //Listado de pedidos activos
+$app->get('/pedido/listabarra[/]', \PedidoProductoController::class . ':ListarPedidosBarra')
+->add(\UsuarioMW::class. ':ValidarBartender')
+->add(\UsuarioMW::class. ':ValidarToken');  
+$app->get('/pedido/listachoperas[/]', \PedidoProductoController::class . ':ListarPedidosChoperas')
+->add(\UsuarioMW::class. ':ValidarCervecero')
+->add(\UsuarioMW::class. ':ValidarToken');;  
+$app->get('/pedido/listacocina[/]', \PedidoProductoController::class . ':ListarPedidosCocina')
+->add(\UsuarioMW::class. ':ValidarCocinero')
+->add(\UsuarioMW::class. ':ValidarToken');  
+$app->get('/pedido/listacandybar[/]', \PedidoProductoController::class . ':ListarPedidosCandybar') 
+->add(\UsuarioMW::class. ':ValidarRepostero')
+->add(\UsuarioMW::class. ':ValidarToken');
+
+//Reportes
+$app->group('/reportes', function (RouteCollectorProxy $group) 
+{
+  $group->get('/demorapedidoscerrados[/]', \ReportesController::class . ':DemoraPedidosCerrados');  
+  $group->get('/estadomesas[/]', \ReportesController::class . ':EstadoMesas');  
+  $group->get('/mejorescomentarios[/]', \ReportesController::class . ':MejoresComentarios');  
+  $group->get('/mesamasusada[/]', \ReportesController::class . ':MesaMasUsada'); 
+})
+  ->add(\UsuarioMW::class. ':ValidarSocio')
+  ->add(\UsuarioMW::class. ':ValidarToken');
+$app->post('/reportes/demorapedidomesa[/]', \ReportesController::class . ':DemoraPedidoMesa'); 
+
+//Manejo estados Pedido Producto
 $app->post('/pedido/enpreparacion[/]', \PedidoProductoController::class . ':PedidoEnPreparacion');
 $app->post('/pedido/listo[/]', \PedidoProductoController::class . ':PedidoListo'); 
 
