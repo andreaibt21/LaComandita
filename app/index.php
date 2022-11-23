@@ -23,6 +23,7 @@ include_once './controllers/PedidoProductoController.php';
 include_once './controllers/ReportesController.php';
 include_once './controllers/SectorController.php';
 include_once './controllers/TipoUsuarioController.php';
+include_once './controllers/EncuestaController.php';
 
 include_once './db/AccesoDatos.php';
 include_once './middlewares/UsuarioMW.php';
@@ -175,6 +176,9 @@ $app->post('/reportes/demorapedidomesa[/]', \ReportesController::class . ':Demor
 
 //Manejo estados Pedido Producto
 $app->post('/pedido/enpreparacion[/]', \PedidoProductoController::class . ':PedidoEnPreparacion');
-$app->post('/pedido/listo[/]', \PedidoProductoController::class . ':PedidoListo'); 
+$app->post('/pedido/listo[/]', \PedidoProductoController::class . ':PedidoListo');
+
+//encuesta
+$app->post('/encuesta/nuevaencuesta[/]', \EncuestaController::class . ':Alta'); 
 
 $app->run();

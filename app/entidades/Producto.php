@@ -80,7 +80,7 @@ class Producto implements IAbm
         //var_dump($array);
         for($i = 0; $i < sizeof($array); $i++)
         {
-            var_dump($array[$i]);
+            //var_dump($array[$i]);
             $campos = explode(",", $array[$i]); 
             //var_dump($campos[2]);
             
