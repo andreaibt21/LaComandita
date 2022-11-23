@@ -24,9 +24,9 @@ include_once("db/AccesoDatos.php");
 
         public static function ExportarTabla($tabla, $clase, $ruta)
         {
-            $listaMesas = AccesoDatos::obtenerTodos($tabla, $clase); 
-    
-            foreach($listaMesas as $item)
+            $listaProductos = AccesoDatos::obtenerTodos($tabla, $clase); 
+            //var_dump($listaProductos);
+            foreach($listaProductos as $item)
             {
                 CSV::GrabarEnCsv($item, $ruta);
             }
@@ -34,7 +34,7 @@ include_once("db/AccesoDatos.php");
 
         public static function LeerCsv($archivo)
         {
-            var_dump($archivo);
+            //var_dump($archivo);
             $auxArchivo = fopen($archivo, "r");
 
             $array = [];
@@ -49,7 +49,7 @@ include_once("db/AccesoDatos.php");
                         if(!empty($registro))
                         {
                             //printf("entra a este if");
-                            //$campo = explode(",", $registro); 
+                            //printf$campo = explode(",", $registro); 
                             //var_dump($campo);   
                             //var_dump($registro);                  
                             array_push($array, $registro);                                                

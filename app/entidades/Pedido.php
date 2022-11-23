@@ -82,7 +82,7 @@ class Pedido implements IAbm
         switch($idEstado)
         {
             case 3: 
-                $pedido[0]->precio_final = Pedido::CalcularPrecio($pedido[0]->id_mesa);//calcular precio           
+                $pedido[0]->precio_final = Pedido::CalcularPrecio($idPedido);//calcular precio           
                 $retorno = $pedido[0]->precio_final;
                 break;
             case 4: 
@@ -96,24 +96,20 @@ class Pedido implements IAbm
         return $retorno;
     }
 
-    public static function CalcularPrecio($mesa)
+    public static function CalcularPrecio($idPedido)
     {
         $precio = 0;
 
-        $sql = "SELECT pp.cantidad as cantidad, pr.precio as precio 
-                FROM mesa m
-                    LEFT JOIN pedido p ON m.id = p.id_mesa
-                    LEFT JOIN pedido_producto pp ON p.id = pp.id_pedido
-                    LEFT JOIN producto pr ON pr.id = pp.id_producto
-                WHERE p.id_mesa = $mesa AND p.estado = 2 AND pp.estado = 2;";       
-        $lista = AccesoDatos::ObtenerConsulta($sql);
-
-        foreach($lista as $item)
-        {
-            $precioItem = $item->cantidad * $item->precio;
-            $precio = $precio + $precioItem;
-        }
-        return $precio;
+        $sql = "SELECT SUM(precio) AS precio_final FROM pedido_producto WHERE id_pedido = $idPedido;"; 
+        //var_dump($sql);
+        $conexion = AccesoDatos::obtenerInstancia();
+        $consulta = $conexion->prepararConsulta($sql);
+        //var_dump($consulta);
+        $consulta->execute();
+        //var_dump($consulta->fetch());
+        $precio = $consulta->fetch(); 
+        //var_dump($precio);     
+        return $precio[0];
     }
 
     public function GuardarImagen()

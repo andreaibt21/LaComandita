@@ -91,7 +91,10 @@ $app->group('/productos', function (RouteCollectorProxy $group)
   $group->post('/alta[/]', \ProductoController::class . ':Alta'); 
   $group->delete('/baja/{id}[/]', \ProductoController::class . ':Baja');
   $group->post('/modificacion[/]', \ProductoController::class . ':Modificacion');  
-  $group->get('/lista[/]', \ProductoController::class . ':Listar');  
+  $group->get('/lista[/]', \ProductoController::class . ':Listar'); 
+   //CSV
+  $group->get('/guardar[/]', \ProductoController::class . ':ExportarTabla');  
+  $group->post('/leer[/]', \ProductoController::class . ':ImportarTabla');  
 })
 ->add(\UsuarioMW::class. ':ValidarSocio')
 ->add(\UsuarioMW::class. ':ValidarToken');
@@ -167,6 +170,7 @@ $app->group('/reportes', function (RouteCollectorProxy $group)
 })
   ->add(\UsuarioMW::class. ':ValidarSocio')
   ->add(\UsuarioMW::class. ':ValidarToken');
+
 $app->post('/reportes/demorapedidomesa[/]', \ReportesController::class . ':DemoraPedidoMesa'); 
 
 //Manejo estados Pedido Producto

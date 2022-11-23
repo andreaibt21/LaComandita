@@ -1,12 +1,14 @@
 <?php
 include_once("db/AccesoDatos.php");
 include_once("interfaces/IAbm.php");
+include_once("guardarleer/CSV.php");
 
 class Producto implements IAbm
 {
     public $id;
     public $id_sector;
     public $nombre;
+    public $precio;
     public $activo;
     public $created_at;
     public $updated_at;
@@ -72,11 +74,34 @@ class Producto implements IAbm
         return $retorno;
     }
 
+    public static function CargarCSV($archivo)
+    {
+        $array = CSV::LeerCsv($archivo);
+        //var_dump($array);
+        for($i = 0; $i < sizeof($array); $i++)
+        {
+            var_dump($array[$i]);
+            $campos = explode(",", $array[$i]); 
+            //var_dump($campos[2]);
+            
+            $producto = new Producto();
+            $producto->id = $campos[0];
+            $producto->id_sector = $campos[1];
+            $producto->nombre = $campos[2];
+            $producto->precio = $campos[3];
+            $producto->activo = $campos[4];
+            $producto->created_at = $campos[5];
+            $producto->updated_at = $campos[6];
+            $producto->crearRegistro();
+        }
+    }
+
     public function crearRegistro()
     {
         $retorno = null;
        try
        {
+           //var_dump($this);
         $objAccesoDatos = AccesoDatos::obtenerInstancia();
         $consulta = $objAccesoDatos->prepararConsulta("INSERT INTO producto (nombre, precio, id_sector, activo, created_at, updated_at) 
                                                               VALUES (:nombre, :precio, :id_sector, :activo, :created_at, :updated_at)");

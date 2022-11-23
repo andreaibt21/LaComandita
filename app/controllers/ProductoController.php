@@ -1,6 +1,6 @@
 <?php
 include_once("entidades/Producto.php");
-
+include_once("guardarleer/CSV.php");
 class ProductoController
 {
     public function Alta($request, $response, $args)
@@ -125,6 +125,46 @@ class ProductoController
         {
             $lista = AccesoDatos::ImprimirTabla('producto', 'Producto');
             $payload = json_encode(array("listaProductos" => $lista));
+            $response->getBody()->write($payload);
+            $newResponse = $response->withHeader('Content-Type', 'application/json');
+        }
+        catch(Throwable $mensaje)
+        {
+            printf("Error al listar: <br> $mensaje .<br>");
+        }
+        finally
+        {
+            return $newResponse;
+        }    
+    }
+
+    public function ExportarTabla($request, $response, $args)
+    {
+        try
+        {
+            CSV::ExportarTabla('producto', 'Producto', 'productos.csv');
+            $payload = json_encode("Tabla exportada con éxito");
+            $response->getBody()->write($payload);
+            $newResponse = $response->withHeader('Content-Type', 'application/json');
+        }
+        catch(Throwable $mensaje)
+        {
+            printf("Error al listar: <br> $mensaje .<br>");
+        }
+        finally
+        {
+            return $newResponse;
+        }    
+    }
+
+    public function ImportarTabla($request, $response, $args)
+    {
+        try
+        {
+            $archivo = ($_FILES["archivo"]);
+            //var_dump($archivo);
+            Producto::CargarCSV($archivo["tmp_name"]);
+            $payload = json_encode("Carga exitosa.");
             $response->getBody()->write($payload);
             $newResponse = $response->withHeader('Content-Type', 'application/json');
         }

@@ -27,34 +27,35 @@ class Reportes
         $mesaAux = str_replace($mesa[0],'1', $mesa); 
 
         $sql= "SELECT 
-                TIMESTAMPDIFF(minute, DATE_FORMAT(p.created_at, '%Y%m%d%H%i%s'), 
-                                      DATE_FORMAT(p.fecha_prevista, '%Y%m%d%H%i%s')) 
+                TIMESTAMPDIFF(minute, p.created_at, p.fecha_prevista) 
                                       as 'Espera total (en min)',
-                TIMESTAMPDIFF(minute, DATE_FORMAT(NOW(), '%Y%m%d%H%i%s'),
-                                      DATE_FORMAT(p.fecha_prevista, '%Y%m%d%H%i%s')) 
+                TIMESTAMPDIFF(minute, NOW(), p.fecha_prevista) 
                                       as 'Quedan (en min)'
               FROM pedido p
               WHERE p.id_mesa = $mesaAux AND p.id = $pedidoAux AND p.fecha_fin is null AND activo = 1;";
-    
-        return AccesoDatos::ObtenerConsulta($sql, null);
+        var_dump($sql);
+        $conexion = AccesoDatos::obtenerInstancia();
+        $consulta = $conexion->prepararConsulta($sql);
+        //var_dump($consulta);
+        $consulta->execute();
+        //var_dump($consulta->fetch());
+        return $consulta->fetch();
     }
 
     // 5 - Solo socios
 
     public static function DemoraPedidosCerrados()
     {
-        $sql = "SELECT 
-                    p.id as 'Num. Pedido',
-                    p.id_mesa as 'Mesa',
-                    CONCAT
-                    (
-                    MOD (TIMESTAMPDIFF(hour, DATE_FORMAT(p.created_at, '%Y%m%d%H%i%s'), DATE_FORMAT(p.fecha_fin, '%Y%m%d%H%i%s')), 24),' h ',
-                    MOD (TIMESTAMPDIFF(minute, DATE_FORMAT(p.created_at, '%Y%m%d%H%i%s'), DATE_FORMAT(p.fecha_fin, '%Y%m%d%H%i%s')), 60), 'min') 
-                    as 'Demora'                      
-                FROM pedido p
-                WHERE p.estado = 4 AND p.activo = 1; ";
-
-        return AccesoDatos::ObtenerConsulta($sql, null);
+        $sql = "SELECT p.id as 'Num. Pedido', p.id_mesa as 'Mesa', 
+                CONCAT ( MOD (TIMESTAMPDIFF(hour, p.created_at, p.fecha_fin), 24),' h ', 
+                         MOD (TIMESTAMPDIFF(minute, p.created_at, p.fecha_fin), 60), 'min') 
+                         as 'Demora' FROM pedido p WHERE p.estado = 4 AND p.activo = 1;";
+        //var_dump($sql); 
+        $conexion = AccesoDatos::obtenerInstancia();
+        $consulta = $conexion->prepararConsulta($sql);
+        //var_dump($consulta);
+        $consulta->execute();
+        return $consulta->fetchAll();
     }
 
     // 8 - Solo socios
@@ -121,5 +122,6 @@ class Reportes
         
         return AccesoDatos::ObtenerConsulta($sql, null);
     }
+   
 }
 ?>
