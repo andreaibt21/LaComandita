@@ -85,10 +85,10 @@ class ProductoController
         {
             $params = $request->getParsedBody();
             $producto = new Producto();
-            $producto->id = $params["idDelProducto"];
-            $producto->id_sector = $params["idDelSector"];
-            $producto->nombre = $params["nuevoNombre"];
-            $producto->precio = $params["nuevoPrecio"];
+            $producto->id = $params["idProducto"];
+            $producto->id_sector = $params["idSector"];
+            $producto->nombre = $params["nombre"];
+            $producto->precio = $params["precio"];
    
             $modificacion = Producto::Modificacion($producto);
             switch($modificacion)

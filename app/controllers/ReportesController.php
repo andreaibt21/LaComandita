@@ -27,6 +27,24 @@ class ReportesController
             return $newResponse;
         }
     }
+    public function DemoraPedidos($request, $response, $args)
+    {
+        try
+        {
+            $lista = Reportes::DemoraPedidos();
+            $payload = json_encode(array("listaPedidos" => $lista));
+            $response->getBody()->write($payload);
+            $newResponse = $response->withHeader('Content-Type', 'application/json');
+        }
+        catch(Throwable $mensaje)
+        {
+            printf("Error al listar: <br> $mensaje .<br>");
+        }
+        finally
+        {
+            return $newResponse;
+        }    
+    }
     public function DemoraPedidosCerrados($request, $response, $args)
     {
         try

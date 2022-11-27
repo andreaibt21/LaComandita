@@ -174,7 +174,7 @@ class AccesoDatos
           $consulta = $conexion->prepararConsulta($sql);
           //var_dump($consulta);
           $consulta->execute();
-        return $consulta->fetchAll();
+        return $consulta->fetchAll(PDO::FETCH_ASSOC);
 
     }
 

@@ -58,7 +58,7 @@ class TipoUsuario implements IAbm
             if($sectorAuxNombre == null)
             {
                 $tipoUsuario->activo = 1;
-                Sector::modificarRegistro($tipoUsuario);
+                TipoUsuario::modificarRegistro($tipoUsuario);
                 $retorno = 1; //se cambia el nombre 
             }
         }

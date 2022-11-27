@@ -33,17 +33,31 @@ class Reportes
                                       as 'Quedan (en min)'
               FROM pedido p
               WHERE p.id_mesa = $mesaAux AND p.id = $pedidoAux AND p.fecha_fin is null AND activo = 1;";
-        var_dump($sql);
+        //var_dump($sql);
         $conexion = AccesoDatos::obtenerInstancia();
         $consulta = $conexion->prepararConsulta($sql);
         //var_dump($consulta);
         $consulta->execute();
         //var_dump($consulta->fetch());
-        return $consulta->fetch();
+        return $consulta->fetch(PDO::FETCH_ASSOC);
     }
 
     // 5 - Solo socios
+    public static function DemoraPedidos()
+    {
+        $sql = "SELECT p.id as 'Num. Pedido', p.id_mesa as 'Mesa', 
+                CONCAT ( MOD (TIMESTAMPDIFF(hour, p.created_at, NOW()), 24),' h ', 
+                         MOD (TIMESTAMPDIFF(minute, p.created_at, NOW()), 60), 'min') 
+                         as 'Demora' FROM pedido p WHERE p.estado = 1 AND p.activo = 1;";
+        //var_dump($sql); 
+        $conexion = AccesoDatos::obtenerInstancia();
+        $consulta = $conexion->prepararConsulta($sql);
+        //var_dump($consulta);
+        $consulta->execute();
+        return $consulta->fetchAll(PDO::FETCH_ASSOC);
+    }
 
+    // 5 - Solo socios
     public static function DemoraPedidosCerrados()
     {
         $sql = "SELECT p.id as 'Num. Pedido', p.id_mesa as 'Mesa', 
@@ -55,11 +69,10 @@ class Reportes
         $consulta = $conexion->prepararConsulta($sql);
         //var_dump($consulta);
         $consulta->execute();
-        return $consulta->fetchAll();
+        return $consulta->fetchAll(PDO::FETCH_ASSOC);
     }
 
     // 8 - Solo socios
-
     public static function EstadoMesas()
     {
         $sql = "SELECT 
@@ -79,11 +92,10 @@ class Reportes
         $consulta = $conexion->prepararConsulta($sql);
         //var_dump($consulta);
         $consulta->execute();
-        return $consulta->fetchAll();
+        return $consulta->fetchAll(PDO::FETCH_ASSOC);
     }
 
     // 12 - Solo socios
-
     public static function MejoresComentarios()
     {
         $sql = "SELECT 
@@ -94,7 +106,10 @@ class Reportes
                 ORDER BY ((e.nota_restaurante + e.nota_mozo + e.nota_cocinero)  / 3)  DESC
                 LIMIT 5;";
         
-        return AccesoDatos::ObtenerConsulta($sql, null);
+        $conexion = AccesoDatos::obtenerInstancia();
+        $consulta = $conexion->prepararConsulta($sql);
+        $consulta->execute();
+        return $consulta->fetchAll(PDO::FETCH_ASSOC);
 
     }
 
@@ -108,7 +123,10 @@ class Reportes
                 GROUP BY p.id_mesa
                 HAVING COUNT(p.id_mesa) = Uso;";
         
-        return AccesoDatos::ObtenerConsulta($sql, null);
+        $conexion = AccesoDatos::obtenerInstancia();
+        $consulta = $conexion->prepararConsulta($sql);
+        $consulta->execute();
+        return $consulta->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public static function Cuenta($idPedido)

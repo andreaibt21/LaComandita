@@ -76,7 +76,7 @@ class TipoUsuarioController
         {
             $params = $request->getParsedBody();
             $tipoUsuario = new TipoUsuario();
-            $tipoUsuario->id = $params["idDelTipo"];
+            $tipoUsuario->id = $params["idTipo"];
             $tipoUsuario->nombre = $params["nuevoNombre"];
             $modificacion = TipoUsuario::Modificacion($tipoUsuario);
             switch($modificacion)

@@ -76,7 +76,7 @@ $app->group('/tipousuario', function (RouteCollectorProxy $group)
 ->add(\UsuarioMW::class. ':ValidarSocio')
 ->add(\UsuarioMW::class. ':ValidarToken'); 
 
-//Usuarios
+//Empleados
 $app->group('/empleados', function (RouteCollectorProxy $group) 
 {
   //ABM
@@ -164,6 +164,7 @@ $app->get('/pedido/listacandybar[/]', \PedidoProductoController::class . ':Lista
 //Reportes
 $app->group('/reportes', function (RouteCollectorProxy $group) 
 {
+  $group->get('/demorapedidos[/]', \ReportesController::class . ':DemoraPedidos');
   $group->get('/demorapedidoscerrados[/]', \ReportesController::class . ':DemoraPedidosCerrados');  
   $group->get('/estadomesas[/]', \ReportesController::class . ':EstadoMesas');  
   $group->get('/mejorescomentarios[/]', \ReportesController::class . ':MejoresComentarios');  

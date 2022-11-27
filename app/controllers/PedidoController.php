@@ -24,7 +24,7 @@ class PedidoController
                     $respuesta = 'Pedido generado.';
                     break;
                 case '0':
-                    $respuesta = 'No se generó el pedido pues la mesa está ocupada';
+                    $respuesta = 'No se generó el pedido porque la mesa está ocupada';
                     break;   
                 case '2':
                     $respuesta = 'Usuario inválido.';
@@ -214,6 +214,7 @@ class PedidoController
             $params = $request->getParsedBody();
             $pedido = $params["pedido"];
             Pedido::CambiarEstado($pedido, '4');
+            Pedido::Baja($pedido); 
             $payload = json_encode("Mesa cerrada.");
             $response->getBody()->write($payload);
             $newResponse = $response->withHeader('Content-Type', 'application/json');
